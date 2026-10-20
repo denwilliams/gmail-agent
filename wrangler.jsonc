@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gmail-agent",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "web/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/auth/*", "/ws"]
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "MAILBOX", "class_name": "Mailbox" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Mailbox"] }],
+  "vars": {
+    // Default for how often to check for new mail, in seconds (600 = 10 minutes). Changeable in the app.
+    "POLL_SECONDS": "600",
+    "SUMMARY_MODEL": "gpt-6-luna",
+    "CHAT_MODEL": "gpt-6-luna"
+  }
+  // Secrets (wrangler secret put): ALLOWED_EMAILS (comma-separated Google accounts allowed to sign in; unset
+  // means nobody can), GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, SESSION_SECRET, TYPESAFE_API_KEY (Jev),
+  // OPENAI_API_KEY (your own key, called directly).
+  // The client ID isn't sensitive, but it's kept out of the repo along with the other account details.
+  // Optional: PUSHOVER_APP_TOKEN + PUSHOVER_USER_KEY (and PUSHOVER_DEVICE). Without them, notifications
+  // are recorded in the app only.
+}

@@ -1,0 +1,10 @@
+GOOGLE_CLIENT_ID=
+ALLOWED_EMAILS=you@example.com
+GOOGLE_CLIENT_SECRET=
+SESSION_SECRET=change-me-long-random
+TYPESAFE_API_KEY=
+OPENAI_API_KEY=
+# Optional: phone pushes via Pushover. Without these, notifications only appear in the app.
+# PUSHOVER_APP_TOKEN=
+# PUSHOVER_USER_KEY=
+# PUSHOVER_DEVICE=
